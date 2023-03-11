@@ -11,11 +11,11 @@ const App = () => {
     return (
         <Container style={{ marginTop: "50px" }}>
             <Row>
-                <Col md={10} sm={7} xs={9}>
+                <Col md={9} sm={8} xs={8}>
                     <Search />
                 </Col>
 
-                <Col md={2} sm={5} xs={3}>
+                <Col md={3} sm={4} xs={4}>
                     <Button>Add Record</Button>
                 </Col>
             </Row>
