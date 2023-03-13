@@ -23,10 +23,10 @@ const Search = () => {
     };
 
     return (
-        <Form onSubmit={handleSearchOnSubmit}>
+        <Form className="w-75 me-auto" onSubmit={handleSearchOnSubmit}>
             <InputGroup>
                 <Form.Control
-                    className="shadow-none"
+                    className="shadow-none me-auto"
                     placeholder="Search..."
                     onChange={handleSearchOnChange}
                     value={searchValue}
