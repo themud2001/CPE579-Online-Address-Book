@@ -7,12 +7,11 @@ const RecordsTable = () => {
             <Table striped responsive bordered className="shadow">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Username</th>
-                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Work Field</th>
+                        <th>Location Coordinates</th>
                     </tr>
                 </thead>
 

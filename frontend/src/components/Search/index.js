@@ -26,6 +26,7 @@ const Search = () => {
         <Form className="w-75 me-auto shadow-sm" onSubmit={handleSearchOnSubmit}>
             <InputGroup>
                 <Form.Control
+                    type="text"
                     className="shadow-none me-auto"
                     placeholder="Search..."
                     onChange={handleSearchOnChange}
