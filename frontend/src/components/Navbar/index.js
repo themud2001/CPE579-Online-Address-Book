@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { FaBookReader } from "react-icons/fa";
+import { BiLogIn } from "react-icons/bi";
 
 const EnhancedNavbar = () => {
     return (
@@ -13,7 +14,9 @@ const EnhancedNavbar = () => {
                     Online Address Book
                 </Navbar.Brand>
 
-                <Button variant="light">Log In</Button>
+                <Button variant="light">
+                    <BiLogIn /> Log In
+                </Button>
             </Container>
         </Navbar>
     );

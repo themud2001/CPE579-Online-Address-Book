@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 
 const RecordsTable = () => {
     return (
-        <Table striped>
+        <Table striped bordered>
             <thead>
                 <tr>
                     <th>#</th>
