@@ -1,7 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
 import { FaBookReader } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
 
@@ -9,14 +9,14 @@ const EnhancedNavbar = () => {
     return (
         <Navbar className="sticky-top" bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand href="#home">
+                <Link to={"/"} className="navbar-brand">
                     <FaBookReader className="me-3" />
                     Online Address Book
-                </Navbar.Brand>
+                </Link>
 
-                <Button variant="light">
-                    <BiLogIn /> Log In
-                </Button>
+                <Link to={"signin"} className="btn btn-light">
+                    <BiLogIn /> Sign In
+                </Link>
             </Container>
         </Navbar>
     );

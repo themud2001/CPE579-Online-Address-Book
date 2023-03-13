@@ -23,7 +23,7 @@ const Search = () => {
     };
 
     return (
-        <Form className="w-75 me-auto" onSubmit={handleSearchOnSubmit}>
+        <Form className="w-75 me-auto shadow-sm" onSubmit={handleSearchOnSubmit}>
             <InputGroup>
                 <Form.Control
                     className="shadow-none me-auto"
