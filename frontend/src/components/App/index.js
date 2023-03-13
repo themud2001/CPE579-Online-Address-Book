@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import { IoMdAdd } from "react-icons/io";
 
 import Search from "../Search";
 import RecordsTable from "../RecordsTable";
@@ -16,7 +17,9 @@ const App = () => {
                 </Col>
 
                 <Col md={3} sm={4} xs={4}>
-                    <Button>Add Record</Button>
+                    <Button variant={"dark"}>
+                        <IoMdAdd /> Add Record
+                    </Button>
                 </Col>
             </Row>
 
