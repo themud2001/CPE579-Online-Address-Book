@@ -33,7 +33,7 @@ const Search = () => {
                     value={searchValue}
                 />
 
-                <Button type="submit" variant="dark">
+                <Button type="submit" variant="primary" className="search-submit">
                     <BiSearch />
                 </Button>
             </InputGroup>

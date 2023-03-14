@@ -5,16 +5,18 @@ import Container from "react-bootstrap/Container";
 import { FaBookReader } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
 
+import "./style.scss";
+
 const EnhancedNavbar = () => {
     return (
-        <Navbar className="sticky-top" bg="dark" variant="dark">
+        <Navbar className="sticky-top custom-gradient" bg="primary" variant="dark">
             <Container>
                 <Link to={"/"} className="navbar-brand">
                     <FaBookReader className="me-3" />
                     Online Address Book
                 </Link>
 
-                <Link to={"signin"} className="btn btn-light">
+                <Link to={"signin"} className="btn btn-outline-light">
                     <BiLogIn /> Sign In
                 </Link>
             </Container>

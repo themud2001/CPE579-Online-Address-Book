@@ -14,7 +14,7 @@ const Home = () => {
 
                 <div className="vr" />
 
-                <Button size="sm" variant="dark" className="shadow-sm">
+                <Button size="sm" variant="primary" className="shadow-sm">
                     <BsFileEarmarkPlus /> Add Record
                 </Button>
             </Stack>

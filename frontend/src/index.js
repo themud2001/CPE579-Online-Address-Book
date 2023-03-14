@@ -8,6 +8,8 @@ import Home from "./components/Home";
 import SignIn from "./components/SignIn";
 import { store } from "./store";
 
+import "./custom.scss";
+
 // Find an element to render the application on
 const element = document.getElementById("root");
 
