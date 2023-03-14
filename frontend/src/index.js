@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./components/App";
+import ErrorPage from "./components/ErrorPage";
 import Home from "./components/Home";
 import SignIn from "./components/SignIn";
 import { store } from "./store";
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
