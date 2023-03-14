@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 const RecordsTable = () => {
     return (
         <div className="mt-5 shadow">
-            <Table striped responsive bordered className="shadow">
+            <Table striped responsive bordered>
                 <thead>
                     <tr>
                         <th>Name</th>
