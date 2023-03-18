@@ -21,7 +21,7 @@ const LogIn = () => {
         if (isSuccess) {
             dispatch(setCredentials(data));
         }
-    }, [data]);
+    }, [data, dispatch, isSuccess]);
 
     return (
         <Container className="d-flex justify-content-center mt-5">
