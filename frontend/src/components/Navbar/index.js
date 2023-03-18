@@ -11,12 +11,12 @@ const EnhancedNavbar = () => {
     return (
         <Navbar className="sticky-top custom-gradient shadow-sm" bg="primary" variant="dark">
             <Container>
-                <Link to={"/"} className="navbar-brand">
+                <Link to="/" className="navbar-brand">
                     <FaBookReader className="me-3" />
                     Online Address Book
                 </Link>
 
-                <Link to={"signin"} className="btn btn-outline-light">
+                <Link to="/signin" className="btn btn-outline-light">
                     <BiLogIn /> Sign In
                 </Link>
             </Container>

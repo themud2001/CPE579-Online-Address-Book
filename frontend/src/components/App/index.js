@@ -1,14 +1,22 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "../Navbar";
+import Home from "../Home";
+import SignIn from "../SignIn";
+import ErrorPage from "../ErrorPage";
 
 const App = () => {
     return (
-        <>
+        <BrowserRouter>
             <Navbar />
-            <Outlet />
-        </>
+            
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="*" element={<ErrorPage />} />
+            </Routes>
+        </BrowserRouter>
     );
 };
 
