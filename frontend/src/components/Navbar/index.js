@@ -9,7 +9,7 @@ import "./style.scss";
 
 const EnhancedNavbar = () => {
     return (
-        <Navbar className="sticky-top custom-gradient" bg="primary" variant="dark">
+        <Navbar className="sticky-top custom-gradient shadow-sm" bg="primary" variant="dark">
             <Container>
                 <Link to={"/"} className="navbar-brand">
                     <FaBookReader className="me-3" />

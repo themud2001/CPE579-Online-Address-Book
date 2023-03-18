@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-const LogIn = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+import { useSignInMutation, setCredentials } from "../../store";
 
+const LogIn = () => {
+    const dispatch = useDispatch();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [signIn, { isLoading, isError, isSuccess, error, data }] = useSignInMutation();
+    
     const handleFormOnSubmit = formData => {
-        console.log(formData);
+        signIn(formData);
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            dispatch(setCredentials(data));
+        }
+    }, [data]);
 
     return (
         <Container className="d-flex justify-content-center mt-5">
@@ -41,10 +52,12 @@ const LogIn = () => {
                             {errors.password && <Form.Text style={{ color: "red" }}>{errors.password.message}</Form.Text>}
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" disabled={isLoading} type="submit">
                             Sign In
                         </Button>
                     </Form>
+
+                    {isError && <Card.Text className="mt-4 text-center" style={{ color: "red" }}>{error.data.errorMessage}</Card.Text>}
                 </Card.Body>
             </Card>
         </Container>
