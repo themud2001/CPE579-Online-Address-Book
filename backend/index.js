@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 dotenv.config({ path: "./.env" });
 
@@ -12,6 +13,7 @@ const errorHandler = require("./middlewares/errorHandler");
 
 databaseConnect();
 app.use(express.json());
+app.use(cors());
 syncDatabase();
 
 app.use("/auth", authRoutes);
