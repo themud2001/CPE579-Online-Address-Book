@@ -9,9 +9,7 @@ import { changeSearch } from "../../store";
 
 const Search = () => {
     const dispatch = useDispatch();
-    const searchValue = useSelector((state) => {
-        return state.search;
-    });
+    const searchValue = useSelector(state => state.search);
 
     const handleSearchOnSubmit = e => {
         e.preventDefault();

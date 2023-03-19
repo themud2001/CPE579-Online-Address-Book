@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -9,7 +10,9 @@ import Button from "react-bootstrap/Button";
 import { useSignInMutation, setCredentials } from "../../store";
 
 const LogIn = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { username } = useSelector(state => state.auth);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [signIn, { isLoading, isError, isSuccess, error, data }] = useSignInMutation();
     
@@ -18,10 +21,15 @@ const LogIn = () => {
     };
 
     useEffect(() => {
+        if (username) {
+            navigate("/");
+        }
+
         if (isSuccess) {
+            localStorage.setItem("token", data.token);
             dispatch(setCredentials(data));
         }
-    }, [data, dispatch, isSuccess]);
+    }, [navigate, username, data, dispatch, isSuccess]);
 
     return (
         <Container className="d-flex justify-content-center mt-5">

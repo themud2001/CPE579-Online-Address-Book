@@ -18,10 +18,19 @@ const authApi = createApi({
                         }
                     };
                 }
+            }),
+            fetchAdminDetails: builder.query({
+                query: token => {
+                    return {
+                        url: "/account-details",
+                        method: "GET",
+                        headers: { "Authorization": `Bearer ${token}` }
+                    };
+                }
             })
         };
     }
 });
 
-export const { useSignInMutation } = authApi;
+export const { useSignInMutation, useFetchAdminDetailsQuery } = authApi;
 export { authApi };
