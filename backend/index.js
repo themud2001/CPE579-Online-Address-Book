@@ -9,7 +9,7 @@ const { databaseConnect } = require("./config/db");
 const syncDatabase = require("./config/syncDatabase");
 
 const authRoutes = require("./routes/auth");
-const errorHandler = require("./middlewares/errorHandler");
+const errorMiddleware = require("./middlewares/errorMiddleware");
 
 databaseConnect();
 app.use(express.json());
@@ -17,7 +17,7 @@ app.use(cors());
 syncDatabase();
 
 app.use("/auth", authRoutes);
-app.use(errorHandler);
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3090;
 app.listen(PORT, () => {
