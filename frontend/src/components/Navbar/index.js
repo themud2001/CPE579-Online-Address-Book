@@ -5,8 +5,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import { FaBookReader } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
+import Button  from "react-bootstrap/Button";
 
-import { useFetchAdminDetailsQuery, setCredentials } from "../../store";
+import { useFetchAdminDetailsQuery, setCredentials, signOut } from "../../store";
 import "./style.scss";
 
 const EnhancedNavbar = () => {
@@ -33,9 +34,9 @@ const EnhancedNavbar = () => {
                         <BiLogIn /> Sign In
                     </Link>
                 ) : (
-                    <Link to="/signout" className="btn btn-light">
+                    <Button variant="light" onClick={() => dispatch(signOut())}>
                         Sign Out <BiLogIn />
-                    </Link>
+                    </Button>
                 )}
             </Container>
         </Navbar>

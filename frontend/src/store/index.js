@@ -3,7 +3,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 
 import { searchReducer, changeSearch } from "./slices/searchSlice";
 import { authApi, useSignInMutation, useFetchAdminDetailsQuery } from "./apis/authApi";
-import { authReducer, setCredentials } from "./slices/authSlice";
+import { authReducer, signOut, setCredentials } from "./slices/authSlice";
 
 const store = configureStore({
     reducer: {
@@ -18,4 +18,11 @@ const store = configureStore({
 
 setupListeners(store.dispatch);
 
-export { store, changeSearch, useSignInMutation, useFetchAdminDetailsQuery, setCredentials };
+export {
+    store,
+    changeSearch,
+    useSignInMutation,
+    useFetchAdminDetailsQuery,
+    signOut,
+    setCredentials
+};
