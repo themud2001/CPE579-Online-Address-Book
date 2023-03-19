@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,19 +7,13 @@ import { FaBookReader } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
 import Button  from "react-bootstrap/Button";
 
-import { useFetchAdminDetailsQuery, setCredentials, signOut } from "../../store";
+import { useFetchAccountDetailsQuery, signOut } from "../../store";
 import "./style.scss";
 
 const EnhancedNavbar = () => {
     const dispatch = useDispatch();
     const { username, token } = useSelector(state => state.auth);
-    const { isSuccess, data } = useFetchAdminDetailsQuery(token);
-
-    useEffect(() => {
-        if (isSuccess) {
-            dispatch(setCredentials({ ...data, token }));
-        }
-    }, [data, dispatch]);
+    useFetchAccountDetailsQuery(token);
 
     return (
         <Navbar className="sticky-top custom-gradient shadow-sm" bg="primary" variant="dark">

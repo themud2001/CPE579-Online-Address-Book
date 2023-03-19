@@ -2,8 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 import { searchReducer, changeSearch } from "./slices/searchSlice";
-import { authApi, useSignInMutation, useFetchAdminDetailsQuery } from "./apis/authApi";
-import { authReducer, signOut, setCredentials } from "./slices/authSlice";
+import { authApi, useSignInMutation, useFetchAccountDetailsQuery } from "./apis/authApi";
+import { authReducer, signOut } from "./slices/authSlice";
 
 const store = configureStore({
     reducer: {
@@ -22,7 +22,6 @@ export {
     store,
     changeSearch,
     useSignInMutation,
-    useFetchAdminDetailsQuery,
-    signOut,
-    setCredentials
+    useFetchAccountDetailsQuery,
+    signOut
 };

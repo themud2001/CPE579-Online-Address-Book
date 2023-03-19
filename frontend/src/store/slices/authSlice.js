@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { authApi } from "../apis/authApi";
+
 const token = localStorage.getItem("token") ? localStorage.getItem("token") : null;
 
 const authSlices = createSlice({
@@ -13,13 +15,20 @@ const authSlices = createSlice({
             localStorage.removeItem("token");
             state.username = null;
             state.token = null;
-        },
-        setCredentials: (state, action) => {
-            state.username = action.payload.username;
-            state.token = action.payload.token;
         }
+    },
+    extraReducers: builder => {
+        builder
+            .addMatcher(authApi.endpoints.signIn.matchFulfilled, (state, action) => {
+                localStorage.setItem("token", action.payload.token);
+                state.username = action.payload.username;
+                state.token = action.payload.token;
+            })
+            .addMatcher(authApi.endpoints.fetchAccountDetails.matchFulfilled, (state, action) => {
+                state.username = action.payload.username;
+            });
     }
 });
 
-export const { signOut, setCredentials } = authSlices.actions;
+export const { signOut } = authSlices.actions;
 export const authReducer = authSlices.reducer;

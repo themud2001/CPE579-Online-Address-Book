@@ -19,7 +19,7 @@ const authApi = createApi({
                     };
                 }
             }),
-            fetchAdminDetails: builder.query({
+            fetchAccountDetails: builder.query({
                 query: token => {
                     return {
                         url: "/account-details",
@@ -32,5 +32,5 @@ const authApi = createApi({
     }
 });
 
-export const { useSignInMutation, useFetchAdminDetailsQuery } = authApi;
+export const { useSignInMutation, useFetchAccountDetailsQuery } = authApi;
 export { authApi };
