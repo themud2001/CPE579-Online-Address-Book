@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 
 import { useSignInMutation } from "../../store";
 
-const LogIn = () => {
+const SignIn = () => {
     const navigate = useNavigate();
     const { username } = useSelector(state => state.auth);
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -66,4 +66,4 @@ const LogIn = () => {
     );
 };
 
-export default LogIn;
+export default SignIn;

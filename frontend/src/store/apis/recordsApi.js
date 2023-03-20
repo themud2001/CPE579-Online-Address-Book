@@ -7,6 +7,15 @@ const recordsApi = createApi({
     }),
     endpoints: builder => {
         return {
+            addRecord: builder.mutation({
+                query: formData => {
+                    return {
+                        url: "/",
+                        method: "POST",
+                        body: formData
+                    };
+                }
+            }),
             fetchRecords: builder.query({
                 query: () => {
                     return {
@@ -19,5 +28,5 @@ const recordsApi = createApi({
     }
 });
 
-export const { useFetchRecordsQuery } = recordsApi;
+export const { useAddRecordMutation, useFetchRecordsQuery } = recordsApi;
 export { recordsApi };

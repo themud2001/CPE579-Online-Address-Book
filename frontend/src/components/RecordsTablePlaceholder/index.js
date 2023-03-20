@@ -7,7 +7,7 @@ const RecordsTablePlaceholder = () => {
 
     for (let i = 0; i < 10; i++) {
         renderedPlaceholder.push(
-            <tr>
+            <tr key={i}>
                 <Placeholder as="td" animation="glow">
                     <Placeholder xs={4 + Math.floor(Math.random() * 4)} />
                 </Placeholder>

@@ -12,10 +12,7 @@ const authApi = createApi({
                     return {
                         url: "/signin",
                         method: "POST",
-                        body: {
-                            username: formData.username,
-                            password: formData.password
-                        }
+                        body: formData
                     };
                 }
             }),

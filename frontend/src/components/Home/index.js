@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Stack from "react-bootstrap/Stack";
-import Button from "react-bootstrap/Button";
 import { BsFileEarmarkPlus } from "react-icons/bs";
 
 import Search from "../Search";
@@ -20,9 +20,9 @@ const Home = () => {
                     <>
                         <div className="vr" />
 
-                        <Button size="sm" variant="primary" className="shadow-sm">
+                        <Link to="/add-record" className="btn btn-primary btn-sm shadow-sm">
                             <BsFileEarmarkPlus /> Add Record
-                        </Button>
+                        </Link>
                     </>
                 )}
             </Stack>
