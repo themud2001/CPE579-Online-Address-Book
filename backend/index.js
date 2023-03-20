@@ -8,6 +8,7 @@ const app = express();
 const { databaseConnect } = require("./config/db");
 
 const authRoutes = require("./routes/auth");
+const recordsRoutes = require("./routes/records");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 
 databaseConnect();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/auth", authRoutes);
+app.use("/records", recordsRoutes);
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3090;
