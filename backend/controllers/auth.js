@@ -33,29 +33,6 @@ module.exports.signIn = async (req, res, next) => {
     }
 };
 
-module.exports.getAccountDetails = async (req, res, next) => {
-    const authHeader = req.headers.authorization;
-
-    if (authHeader && authHeader.startsWith("Bearer")) {
-        try {
-            const token = authHeader.split(" ")[1];
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-            try {
-                const admin = await Admin.findOne({ where: { username: decoded.username } });
-
-                if (!admin) {
-                    return res.status(401).json({ errorMessage: "Account not found" });
-                }
-
-                return res.status(200).json({ username: admin.username });
-            } catch (error) {
-                return next(error);
-            }
-        } catch (error) {
-            return res.status(401).json({ errorMessage: "Invalid token" });
-        }
-    }
-
-    return res.status(401).json({ errorMessage: "No token found" });
+module.exports.getAccountDetails = (req, res) => {
+    res.status(200).json({ username: req.user.username });
 };

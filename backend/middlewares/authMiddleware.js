@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
         const admin = await Admin.findOne({ where: { username: decoded.username } });
 
         if (!admin) {
-            return res.status(401).json({ errorMessage: "Unauthorized: Account not found" });
+            return res.status(401).json({ errorMessage: "Unauthorized: Invalid token (account not found)" });
         }
 
         req.user = admin;
