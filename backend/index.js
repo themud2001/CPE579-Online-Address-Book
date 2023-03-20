@@ -6,7 +6,6 @@ dotenv.config({ path: "./.env" });
 
 const app = express();
 const { databaseConnect } = require("./config/db");
-const syncDatabase = require("./config/syncDatabase");
 
 const authRoutes = require("./routes/auth");
 const errorMiddleware = require("./middlewares/errorMiddleware");
@@ -14,7 +13,6 @@ const errorMiddleware = require("./middlewares/errorMiddleware");
 databaseConnect();
 app.use(express.json());
 app.use(cors());
-syncDatabase();
 
 app.use("/auth", authRoutes);
 app.use(errorMiddleware);

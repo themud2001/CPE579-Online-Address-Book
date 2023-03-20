@@ -7,8 +7,16 @@ const Admin = sequelize.define("admins", {
         autoIncrement: true,
         primaryKey: true
     },
-    username: DataTypes.STRING,
-    password: DataTypes.STRING
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    timestamps: false
 });
 
 module.exports = Admin;
