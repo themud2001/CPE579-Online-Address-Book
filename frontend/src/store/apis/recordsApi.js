@@ -17,12 +17,7 @@ const recordsApi = createApi({
                 }
             }),
             fetchRecords: builder.query({
-                query: () => {
-                    return {
-                        url: "/",
-                        method: "GET"
-                    };
-                }
+                query: () => "/"
             })
         };
     }
