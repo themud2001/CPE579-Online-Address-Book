@@ -18,6 +18,8 @@ module.exports = async (req, res, next) => {
             return res.status(401).json({ errorMessage: "Unauthorized: Account not found" });
         }
 
+        req.user = admin;
+
         next();
     } catch (error) {
         return res.status(401).json({ errorMessage: "Unauthorized: Invalid token" });
