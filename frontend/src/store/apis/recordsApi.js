@@ -17,12 +17,23 @@ const recordsApi = createApi({
                     };
                 }
             }),
+            deleteRecord: builder.mutation({
+                query: ({ id, token }) => {
+                    return {
+                        url: `/${id}`,
+                        method: "DELETE",
+                        headers: { authorization: `Bearer ${token}` }
+                    };
+                },
+                invalidatesTags: ["Record"]
+            }),
             fetchRecords: builder.query({
-                query: page => `/?page=${page}`
+                query: page => `/?page=${page}`,
+                providesTags: ["Record"]
             })
         };
     }
 });
 
-export const { useAddRecordMutation, useFetchRecordsQuery } = recordsApi;
+export const { useAddRecordMutation, useDeleteRecordMutation, useFetchRecordsQuery } = recordsApi;
 export { recordsApi };

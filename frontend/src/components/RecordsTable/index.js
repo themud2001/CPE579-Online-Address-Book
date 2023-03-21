@@ -1,17 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Pagination from "react-bootstrap/Pagination";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { TiEdit } from "react-icons/ti";
+import Button from "react-bootstrap/Button";
+import toast from "react-hot-toast";
 
-import { useFetchRecordsQuery } from "../../store";
+import { useDeleteRecordMutation, useFetchRecordsQuery } from "../../store";
 import RecordsTablePlaceholder from "../RecordsTablePlaceholder";
 
 const RecordsTable = () => {
+    const navigate = useNavigate();
+    const { username, token } = useSelector(state => state.auth);
     const [page, setPage] = useState(1);
-    const { isSuccess, isError, isFetching, data, error } = useFetchRecordsQuery(page);
+    const {
+        isSuccess: isSuccessFetchRecords,
+        isError: isErrorFetchRecords,
+        isFetching: isFetchingFetchRecords,
+        data,
+        error: errorFetchRecords
+    } = useFetchRecordsQuery(page);
+
+    const [deleteRecord, {
+        isSuccess: isSuccessDeleteRecords,
+        isError: isErrorDeleteRecords,
+        error: errorDeleteRecords
+    }] = useDeleteRecordMutation();
+
     let renderedRecords;
     let renderedPagination = [];
 
-    if (isSuccess) {
+    useEffect(() => {
+        if (isSuccessDeleteRecords) {
+            toast.success("Deleted successfully!");
+        }
+
+        if (isErrorDeleteRecords) {
+            toast.error(errorDeleteRecords.data.errorMessage);
+        }
+    }, [isSuccessDeleteRecords, isErrorDeleteRecords, errorDeleteRecords]);
+
+    if (isSuccessFetchRecords) {
         renderedRecords = data.records.map(element => {
             return (
                 <tr key={element.id}>
@@ -19,7 +50,26 @@ const RecordsTable = () => {
                     <td>{element.address}</td>
                     <td>{element.phone}</td>
                     <td>{element.workField}</td>
-                    <td>{element.coordinates}</td>
+                    <td className="d-flex justify-content-between">
+                        {element.coordinates}
+                        {username && (
+                            <div className="d-flex gap-1">
+                                <Button
+                                    variant="primary"
+                                    onClick={() => navigate("/edit-record")}
+                                >
+                                    <TiEdit />
+                                </Button>
+
+                                <Button
+                                    variant="danger"
+                                    onClick={() => deleteRecord({ id: element.id, token })}
+                                >
+                                    <RiDeleteBinLine />
+                                </Button>
+                            </div>
+                        )}
+                    </td>
                 </tr>
             );
         });
@@ -38,10 +88,10 @@ const RecordsTable = () => {
     }
 
     return (
-        isError && error.data ? (
-            <h4 className="text-center text-muted mt-5">{error.data.errorMessage}</h4>
+        isErrorFetchRecords && errorFetchRecords.data ? (
+            <h4 className="text-center text-muted mt-5">{errorFetchRecords.data.errorMessage}</h4>
         ) : (
-            isFetching ? (
+            isFetchingFetchRecords ? (
                 <div className="mt-4 shadow-sm">
                     <RecordsTablePlaceholder />
                 </div>
@@ -60,7 +110,7 @@ const RecordsTable = () => {
                             </thead>
 
                             <tbody>
-                                {isSuccess && renderedRecords}
+                                {isSuccessFetchRecords && renderedRecords}
                             </tbody>
                         </Table>
                     </div>

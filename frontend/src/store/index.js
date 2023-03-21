@@ -4,7 +4,12 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { searchReducer, changeSearch } from "./slices/searchSlice";
 import { authApi, useSignInMutation, useFetchAccountDetailsQuery } from "./apis/authApi";
 import { authReducer, signOut } from "./slices/authSlice";
-import { recordsApi, useAddRecordMutation, useFetchRecordsQuery } from "./apis/recordsApi";
+import {
+    recordsApi,
+    useAddRecordMutation,
+    useDeleteRecordMutation,
+    useFetchRecordsQuery
+} from "./apis/recordsApi";
 
 const store = configureStore({
     reducer: {
@@ -29,5 +34,6 @@ export {
     useFetchAccountDetailsQuery,
     signOut,
     useAddRecordMutation,
+    useDeleteRecordMutation,
     useFetchRecordsQuery
 };

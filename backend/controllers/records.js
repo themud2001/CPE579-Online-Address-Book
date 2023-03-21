@@ -30,6 +30,28 @@ module.exports.addRecord = async (req, res, next) => {
     }
 };
 
+module.exports.deleteRecord = async (req, res, next) => {
+    const id = req.params.id;
+
+    if (!id || id.trim() === "" || isNaN(id)) {
+        return res.status(400).json({ errorMessage: "Invalid ID" });
+    }
+
+    try {
+        const record = await Record.findOne({ where: { id } });
+
+        if (!record) {
+            return res.status(404).json({ errorMessage: "Record not found" });
+        }
+
+        await record.destroy();
+
+        res.status(200).end();
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports.getRecords = async (req, res, next) => {
     try {
         const count = await Record.count();
