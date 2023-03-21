@@ -13,7 +13,7 @@ import { useAddRecordMutation } from "../../store";
 const AddRecord = () => {
     const { username, token } = useSelector(state => state.auth);
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [addRecord, { isLoading, isSuccess, isError, error }] = useAddRecordMutation();
 
     useEffect(() => {
@@ -38,6 +38,7 @@ const AddRecord = () => {
 
     const handleFormOnSubmit = formData => {
         addRecord({ formData, token });
+        reset();
     };
 
     return (
