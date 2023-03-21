@@ -53,6 +53,7 @@ const AddRecord = () => {
                             <Form.Label>Name</Form.Label>
                             <Form.Control
                                 type="text"
+                                autoComplete="none"
                                 placeholder="Name"
                                 {...register("name", { required: "Name is required" })}
                             />
@@ -63,6 +64,7 @@ const AddRecord = () => {
                             <Form.Label>Address</Form.Label>
                             <Form.Control
                                 type="text"
+                                autoComplete="none"
                                 placeholder="Address"
                                 {...register("address", { required: "Address is required" })}
                             />
@@ -73,6 +75,7 @@ const AddRecord = () => {
                             <Form.Label>Phone</Form.Label>
                             <Form.Control
                                 type="text"
+                                autoComplete="none"
                                 placeholder="Phone"
                                 {...register("phone", { required: "Phone is required" })}
                             />
@@ -83,6 +86,7 @@ const AddRecord = () => {
                             <Form.Label>Work field</Form.Label>
                             <Form.Control
                                 type="text"
+                                autoComplete="none"
                                 placeholder="Work field"
                                 {...register("workField", { required: "Work field is required" })}
                             />
@@ -93,6 +97,7 @@ const AddRecord = () => {
                             <Form.Label>Location Coordinates</Form.Label>
                             <Form.Control
                                 type="text"
+                                autoComplete="none"
                                 placeholder="Locatoin Coordinates"
                                 {...register("coordinates", { required: "Coordinates are required" })}
                             />

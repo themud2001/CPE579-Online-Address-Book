@@ -52,6 +52,7 @@ const SignIn = () => {
                             <Form.Label>Username</Form.Label>
                             <Form.Control
                                 type="text"
+                                autoComplete="none"
                                 placeholder="Username"
                                 {...register("username", { required: "Username is required" })}
                             />
