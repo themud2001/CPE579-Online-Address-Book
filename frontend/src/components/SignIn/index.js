@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import toast from "react-hot-toast";
 
 import { useSignInMutation } from "../../store";
 
@@ -13,7 +14,7 @@ const SignIn = () => {
     const navigate = useNavigate();
     const { username } = useSelector(state => state.auth);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [signIn, { isLoading, isError, error }] = useSignInMutation();
+    const [signIn, { isSuccess, isLoading, isError, error }] = useSignInMutation();
     
     const handleFormOnSubmit = formData => {
         signIn(formData);
@@ -23,7 +24,20 @@ const SignIn = () => {
         if (username) {
             navigate("/");
         }
-    }, [navigate, username]);
+
+        if (isSuccess) {
+            toast.success("Successfully signed in!");
+        }
+
+        if (isError) {
+            toast.error(error.data.errorMessage);
+        }
+    }, [
+        navigate,
+        username,
+        isError,
+        error
+    ]);
 
     return (
         <Container className="d-flex justify-content-center mt-5">
@@ -58,8 +72,6 @@ const SignIn = () => {
                             Sign In
                         </Button>
                     </Form>
-
-                    {isError && <Card.Text className="mt-4 text-center" style={{ color: "red" }}>{error.data.errorMessage}</Card.Text>}
                 </Card.Body>
             </Card>
         </Container>
