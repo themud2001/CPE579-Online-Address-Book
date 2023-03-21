@@ -18,7 +18,7 @@ module.exports.signIn = async (req, res, next) => {
         const admin = await Admin.findOne({ where: { username } });
 
         if (!admin) {
-            return res.status(404).json({ errorMessage: "Account is not found" });
+            return res.status(404).json({ errorMessage: "Account not found" });
         }
 
         if (password !== admin.password) {
