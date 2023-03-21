@@ -32,13 +32,26 @@ module.exports.addRecord = async (req, res, next) => {
 
 module.exports.getRecords = async (req, res, next) => {
     try {
-        const records = await Record.findAll({ limit: 15 });
+        const count = await Record.count();
+        let page = Math.floor(req.query.page);
 
-        if (!records || records.length === 0) {
+        if (!page || page <= 0) {
+            page = 1;
+        }
+
+        let offset = page * 10 - 10;
+
+        if (offset >= count) {
+            offset = count - (count % 10);
+        }
+
+        const records = await Record.findAll({ limit: 10, offset });
+
+        if (!records || records.length === 0 || count === 0) {
             return res.status(404).json({ errorMessage: "No records found" });
         }
 
-        return res.status(200).json({ records });
+        return res.status(200).json({ records, count });
     } catch (error) {
         next(error);
     }

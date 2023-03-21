@@ -18,7 +18,7 @@ const recordsApi = createApi({
                 }
             }),
             fetchRecords: builder.query({
-                query: () => "/"
+                query: page => `/?page=${page}`
             })
         };
     }
