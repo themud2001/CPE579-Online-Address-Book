@@ -21,7 +21,7 @@ const Search = () => {
     };
 
     return (
-        <Form className="w-75 me-auto shadow-sm" onSubmit={handleSearchOnSubmit}>
+        <Form className="w-100 me-auto shadow-sm" onSubmit={handleSearchOnSubmit}>
             <InputGroup>
                 <Form.Control
                     type="text"

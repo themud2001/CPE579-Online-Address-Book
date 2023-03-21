@@ -34,7 +34,7 @@ module.exports.getRecords = async (req, res, next) => {
     try {
         const records = await Record.findAll({ limit: 15 });
 
-        if (!records) {
+        if (!records || records.length === 0) {
             return res.status(404).json({ errorMessage: "No records found" });
         }
 

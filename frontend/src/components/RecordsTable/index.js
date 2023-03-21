@@ -23,27 +23,31 @@ const RecordsTable = () => {
     }
 
     return (
-        <div className="mt-5 shadow-sm">
-            {isFetching ? (
-                <RecordsTablePlaceholder />
-            ) : (
-                <Table striped responsive bordered>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Phone</th>
-                            <th>Work Field</th>
-                            <th>Location Coordinates</th>
-                        </tr>
-                    </thead>
+        isError && error.data ? (
+            <h4 className="text-center text-muted mt-5">{error.data.errorMessage}</h4>
+        ) : (
+            <div className="mt-5 shadow-sm">
+                {isFetching ? (
+                    <RecordsTablePlaceholder />
+                ) : (
+                    <Table striped responsive bordered>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>Work Field</th>
+                                <th>Location Coordinates</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        {isSuccess && renderedRecords}
-                    </tbody>
-                </Table>
-            )}
-        </div>
+                        <tbody>
+                            {isSuccess && renderedRecords}
+                        </tbody>
+                    </Table>
+                )}
+            </div>
+        )
     );
 };
 
