@@ -8,10 +8,11 @@ const recordsApi = createApi({
     endpoints: builder => {
         return {
             addRecord: builder.mutation({
-                query: formData => {
+                query: ({ formData, token }) => {
                     return {
                         url: "/",
                         method: "POST",
+                        headers: { authorization: `Bearer ${token}` },
                         body: formData
                     };
                 }

@@ -11,7 +11,7 @@ import Spinner from "react-bootstrap/Spinner";
 import { useAddRecordMutation } from "../../store";
 
 const AddRecord = () => {
-    const { username } = useSelector(state => state.auth);
+    const { username, token } = useSelector(state => state.auth);
     const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [addRecord, { isFetching, isSuccess, isError, error }] = useAddRecordMutation();
@@ -23,7 +23,7 @@ const AddRecord = () => {
     }, [navigate, username]);
 
     const handleFormOnSubmit = formData => {
-        addRecord(formData);
+        addRecord({ formData, token });
     };
 
     return (
