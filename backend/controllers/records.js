@@ -7,11 +7,11 @@ module.exports.addRecord = async (req, res, next) => {
         !req.body.phone ||
         !req.body.workField ||
         !req.body.coordinates ||
-        req.body.name.trim(" ") === "" ||
-        req.body.address.trim(" ") === "" ||
-        req.body.phone.trim(" ") === "" ||
-        req.body.workField.trim(" ") === "" ||
-        req.body.coordinates.trim(" ") === ""
+        req.body.name.trim() === "" ||
+        req.body.address.trim() === "" ||
+        req.body.phone.trim() === "" ||
+        req.body.workField.trim() === "" ||
+        req.body.coordinates.trim() === ""
     ) {
         return res.status(400).json({ errorMessage: "Invalid input" });
     }

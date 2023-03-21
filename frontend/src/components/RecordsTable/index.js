@@ -56,7 +56,7 @@ const RecordsTable = () => {
                             <div className="d-flex gap-1">
                                 <Button
                                     variant="primary"
-                                    onClick={() => navigate("/edit-record")}
+                                    onClick={() => navigate(`/edit-record?id=${element.id}`)}
                                 >
                                     <TiEdit />
                                 </Button>
