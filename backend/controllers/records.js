@@ -134,6 +134,10 @@ module.exports.getRecords = async (req, res, next) => {
 
         if (offset >= count) {
             offset = count - (count % 10);
+
+            if (offset === count) {
+                offset = offset - 10;
+            }
         }
 
         const records = await Record.findAll({ limit: 10, offset });
