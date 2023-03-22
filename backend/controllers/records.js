@@ -30,6 +30,44 @@ module.exports.addRecord = async (req, res, next) => {
     }
 };
 
+module.exports.editRecord = async (req, res, next) => {
+    if (
+        !req.body.id ||
+        !req.body.name ||
+        !req.body.address ||
+        !req.body.phone ||
+        !req.body.workField ||
+        !req.body.coordinates ||
+        req.body.id.trim() === "" ||
+        req.body.name.trim() === "" ||
+        req.body.address.trim() === "" ||
+        req.body.phone.trim() === "" ||
+        req.body.workField.trim() === "" ||
+        req.body.coordinates.trim() === ""
+    ) {
+        return res.status(400).json({ errorMessage: "Invalid input" });
+    }
+
+    try {
+        const record1 = await Record.findOne({ where: { id: req.body.id } });
+
+        if (!record1) {
+            return res.status(404).json({ errorMessage: "Record not found" });
+        }
+
+        const record2 = await Record.findOne({ where: { name: req.body.name } });
+
+        if (record2 && record1.id != record2.id) {
+            return res.status(409).json({ errorMessage: "Name already exists" });
+        }
+
+        await Record.update(req.body, { where: { id: req.body.id } });
+        res.status(201).end();
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports.deleteRecord = async (req, res, next) => {
     const id = req.params.id;
 

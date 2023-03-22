@@ -6,6 +6,7 @@ import Navbar from "../Navbar";
 import Home from "../Home";
 import SignIn from "../SignIn";
 import AddRecord from "../AddRecord";
+import EditRecord from "../EditRecord";
 import ErrorPage from "../ErrorPage";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/add-record" element={<AddRecord />} />
+                <Route path="/edit-record" element={<EditRecord />} />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>

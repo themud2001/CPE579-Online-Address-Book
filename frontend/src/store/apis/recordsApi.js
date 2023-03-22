@@ -18,6 +18,17 @@ const recordsApi = createApi({
                 },
                 invalidatesTags: ["Record"]
             }),
+            editRecord: builder.mutation({
+                query: ({ formData, token }) => {
+                    return {
+                        url: "/",
+                        method: "PUT",
+                        headers: { authorization: `Bearer ${token}` },
+                        body: formData
+                    };
+                },
+                invalidatesTags: ["Record"]
+            }),
             deleteRecord: builder.mutation({
                 query: ({ id, token }) => {
                     return {
@@ -36,5 +47,5 @@ const recordsApi = createApi({
     }
 });
 
-export const { useAddRecordMutation, useDeleteRecordMutation, useFetchRecordsQuery } = recordsApi;
+export const { useAddRecordMutation, useEditRecordMutation, useDeleteRecordMutation, useFetchRecordsQuery } = recordsApi;
 export { recordsApi };
