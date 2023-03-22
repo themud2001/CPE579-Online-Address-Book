@@ -86,7 +86,7 @@ const RecordsTable = () => {
             );
         }
     }
-    console.log(isErrorFetchRecords);
+    
     return (
         isErrorFetchRecords ? (
             <h4 className="text-center text-muted mt-5">{errorFetchRecords.data ? errorFetchRecords.data.errorMessage : "An unexpected error occurred"}</h4>
