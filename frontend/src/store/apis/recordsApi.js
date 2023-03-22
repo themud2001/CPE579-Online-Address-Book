@@ -40,12 +40,27 @@ const recordsApi = createApi({
                 invalidatesTags: ["Record"]
             }),
             fetchRecords: builder.query({
-                query: page => `/?page=${page}`,
+                query: ({ page=1, search }) => {
+                    if (!search || search.trim() === "") {
+                        return {
+                            url: `/?page=${page}`
+                        };
+                    }
+                    
+                    return {
+                        url: `/${search}`
+                    };
+                },
                 providesTags: ["Record"]
             })
         };
     }
 });
 
-export const { useAddRecordMutation, useEditRecordMutation, useDeleteRecordMutation, useFetchRecordsQuery } = recordsApi;
+export const {
+    useAddRecordMutation,
+    useEditRecordMutation,
+    useDeleteRecordMutation,
+    useFetchRecordsQuery
+} = recordsApi;
 export { recordsApi };

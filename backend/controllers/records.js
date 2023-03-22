@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Record = require("../models/Record");
 
 module.exports.addRecord = async (req, res, next) => {
@@ -85,6 +86,36 @@ module.exports.deleteRecord = async (req, res, next) => {
         await record.destroy();
 
         res.status(200).end();
+    } catch (error) {
+        next(error);
+    }
+};
+
+module.exports.getSpecificRecord = async (req, res, next) => {
+    const search = req.params.search.trim();
+
+    if (!search || search === "") {
+        return res.status(400).json({ errorMessage: "Invalid search value" });
+    }
+
+    try {
+        const records = await Record.findAll({
+            where: {
+                [Op.or]: [
+                    { name: search },
+                    { address: search },
+                    { phone: search },
+                    { workField: search },
+                    { coordinates: search },
+                ]
+            }
+        });
+
+        if (!records || records.length === 0) {
+            return res.status(404).json({ errorMessage: "Record not found" });
+        }
+
+        res.status(200).json({ records });
     } catch (error) {
         next(error);
     }

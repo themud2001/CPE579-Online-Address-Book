@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -10,14 +10,15 @@ import { changeSearch } from "../../store";
 const Search = () => {
     const dispatch = useDispatch();
     const searchValue = useSelector(state => state.search);
+    const [search, setSearch] = useState(searchValue || "");
 
     const handleSearchOnSubmit = e => {
         e.preventDefault();
-        console.log(searchValue);
+        dispatch(changeSearch(search));
     }
 
     const handleSearchOnChange = e => {
-        dispatch(changeSearch(e.target.value));
+        setSearch(e.target.value);
     };
 
     return (
@@ -25,10 +26,10 @@ const Search = () => {
             <InputGroup>
                 <Form.Control
                     type="text"
-                    className="shadow-none me-auto"
+                    className="shadow-none"
                     placeholder="Search..."
                     onChange={handleSearchOnChange}
-                    value={searchValue}
+                    value={search}
                 />
 
                 <Button type="submit" variant="primary" className="search-submit">

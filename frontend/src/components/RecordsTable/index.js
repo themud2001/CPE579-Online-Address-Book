@@ -13,7 +13,7 @@ import RecordsTablePlaceholder from "../RecordsTablePlaceholder";
 
 const RecordsTable = () => {
     const navigate = useNavigate();
-    const { username, token } = useSelector(state => state.auth);
+    const [{ username, token }, search] = useSelector(state => [state.auth, state.search]);
     const [page, setPage] = useState(1);
     const {
         isSuccess: isSuccessFetchRecords,
@@ -21,7 +21,7 @@ const RecordsTable = () => {
         isFetching: isFetchingFetchRecords,
         data,
         error: errorFetchRecords
-    } = useFetchRecordsQuery(page);
+    } = useFetchRecordsQuery({ page, search });
 
     const [deleteRecord, {
         isSuccess: isSuccessDeleteRecords,
@@ -115,23 +115,25 @@ const RecordsTable = () => {
                         </Table>
                     </div>
 
-                    <Pagination className="justify-content-center mt-3" size="sm">
-                        <Pagination.Prev
-                            disabled={page <= 1}
-                            onClick={() => setPage(page - 1)}
-                        >
-                            {"<"} Back
-                        </Pagination.Prev>
+                    {!search && search.trim() === "" && (
+                        <Pagination className="justify-content-center mt-3" size="sm">
+                            <Pagination.Prev
+                                disabled={page <= 1}
+                                onClick={() => setPage(page - 1)}
+                            >
+                                {"<"} Back
+                            </Pagination.Prev>
 
-                        {renderedPagination}
+                            {renderedPagination}
 
-                        <Pagination.Next
-                            disabled={page >= Math.ceil(data.count / 10)}
-                            onClick={() => setPage(page + 1)}
-                        >
-                            Next {">"}
-                        </Pagination.Next>
-                    </Pagination>
+                            <Pagination.Next
+                                disabled={page >= Math.ceil(data.count / 10)}
+                                onClick={() => setPage(page + 1)}
+                            >
+                                Next {">"}
+                            </Pagination.Next>
+                        </Pagination>
+                    )}
                 </>
             )
         )
