@@ -30,7 +30,7 @@ const SignIn = () => {
         }
 
         if (isError) {
-            toast.error(error.data.errorMessage);
+            toast.error(error.data ? error.data.errorMessage : "An unexpected error occurred!");
         }
     }, [
         navigate,
