@@ -86,10 +86,10 @@ const RecordsTable = () => {
             );
         }
     }
-
+    console.log(isErrorFetchRecords);
     return (
-        isErrorFetchRecords && errorFetchRecords.data ? (
-            <h4 className="text-center text-muted mt-5">{errorFetchRecords.data.errorMessage}</h4>
+        isErrorFetchRecords ? (
+            <h4 className="text-center text-muted mt-5">{errorFetchRecords.data ? errorFetchRecords.data.errorMessage : "An unexpected error occurred"}</h4>
         ) : (
             isFetchingFetchRecords ? (
                 <div className="mt-4 shadow-sm">
