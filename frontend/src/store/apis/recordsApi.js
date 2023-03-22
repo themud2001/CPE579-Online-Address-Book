@@ -15,7 +15,8 @@ const recordsApi = createApi({
                         headers: { authorization: `Bearer ${token}` },
                         body: formData
                     };
-                }
+                },
+                invalidatesTags: ["Record"]
             }),
             deleteRecord: builder.mutation({
                 query: ({ id, token }) => {
