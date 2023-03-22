@@ -35,6 +35,7 @@ const SignIn = () => {
     }, [
         navigate,
         username,
+        isSuccess,
         isError,
         error
     ]);
