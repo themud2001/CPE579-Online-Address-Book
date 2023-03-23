@@ -121,7 +121,7 @@ module.exports.getSpecificRecord = async (req, res, next) => {
     }
 };
 
-module.exports.getRecords = async (req, res, next) => {
+module.exports.getRecords = async (req, res, next) => { 
     try {
         const count = await Record.count();
         let page = Math.floor(req.query.page);

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import Navbar from "../Navbar";
+import Modal from "../Modal";
 import Home from "../Home";
 import SignIn from "../SignIn";
 import AddRecord from "../AddRecord";
@@ -14,6 +15,7 @@ const App = () => {
         <BrowserRouter>
             <Toaster />
             <Navbar />
+            <Modal />
             
             <Routes>
                 <Route path="/" element={<Home />} />

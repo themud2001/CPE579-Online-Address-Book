@@ -43,12 +43,14 @@ const recordsApi = createApi({
                 query: ({ page=1, search }) => {
                     if (!search || search.trim() === "") {
                         return {
-                            url: `/?page=${page}`
+                            url: `/?page=${page}`,
+                            credentials: "include"
                         };
                     }
                     
                     return {
-                        url: `/${search}`
+                        url: `/${search}`,
+                        credentials: "include"
                     };
                 },
                 providesTags: ["Record"]
