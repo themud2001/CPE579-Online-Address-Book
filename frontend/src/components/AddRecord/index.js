@@ -56,9 +56,9 @@ const AddRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Name"
+                                isInvalid={errors.name}
                                 {...register("name", { required: "Name is required" })}
                             />
-                            {errors.name && <Form.Text style={{ color: "red" }}>{errors.name.message}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="address">
@@ -67,9 +67,9 @@ const AddRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Address"
+                                isInvalid={errors.address}
                                 {...register("address", { required: "Address is required" })}
                             />
-                            {errors.address && <Form.Text style={{ color: "red" }}>{errors.address.message}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="phone">
@@ -78,9 +78,9 @@ const AddRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Phone"
+                                isInvalid={errors.phone}
                                 {...register("phone", { required: "Phone is required" })}
                             />
-                            {errors.phone && <Form.Text style={{ color: "red" }}>{errors.phone.message}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="workField">
@@ -89,9 +89,9 @@ const AddRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Work field"
+                                isInvalid={errors.workField}
                                 {...register("workField", { required: "Work field is required" })}
                             />
-                            {errors.workField && <Form.Text style={{ color: "red" }}>{errors.workField.message}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="coordinates">
@@ -100,9 +100,9 @@ const AddRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Location Coordinates"
+                                isInvalid={errors.coordinates}
                                 {...register("coordinates", { required: "Coordinates are required" })}
                             />
-                            {errors.coordinates && <Form.Text style={{ color: "red" }}>{errors.coordinates.message}</Form.Text>}
                         </Form.Group>
 
                         <Button variant="primary" type="submit" disabled={isLoading}>

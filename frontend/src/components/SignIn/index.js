@@ -55,9 +55,9 @@ const SignIn = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Username"
+                                isInvalid={errors.username}
                                 {...register("username", { required: "Username is required" })}
                             />
-                            {errors.username && <Form.Text style={{ color: "red" }}>{errors.username.message}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="password">
@@ -65,9 +65,9 @@ const SignIn = () => {
                             <Form.Control
                                 type="password"
                                 placeholder="Password"
+                                isInvalid={errors.password}
                                 {...register("password", { required: "Password is required" })}
                             />
-                            {errors.password && <Form.Text style={{ color: "red" }}>{errors.password.message}</Form.Text>}
                         </Form.Group>
 
                         <Button variant="primary" disabled={isLoading} type="submit">

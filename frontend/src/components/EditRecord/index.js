@@ -58,9 +58,9 @@ const EditRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Name"
+                                isInvalid={errors.name}
                                 {...register("name", { required: "Name is required", value: searchParams.get("name") })}
                             />
-                            {errors.name && <Form.Text style={{ color: "red" }}>{errors.name.message}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="address">
@@ -69,9 +69,9 @@ const EditRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Address"
+                                isInvalid={errors.address}
                                 {...register("address", { required: "Address is required", value: searchParams.get("address") })}
                             />
-                            {errors.address && <Form.Text style={{ color: "red" }}>{errors.address.message}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="phone">
@@ -80,9 +80,9 @@ const EditRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Phone"
+                                isInvalid={errors.phone}
                                 {...register("phone", { required: "Phone is required", value: searchParams.get("phone") })}
                             />
-                            {errors.phone && <Form.Text style={{ color: "red" }}>{errors.phone.message}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="workField">
@@ -91,9 +91,9 @@ const EditRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Work field"
+                                isInvalid={errors.workField}
                                 {...register("workField", { required: "Work field is required", value: searchParams.get("workField") })}
                             />
-                            {errors.workField && <Form.Text style={{ color: "red" }}>{errors.workField.message}</Form.Text>}
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="coordinates">
@@ -102,9 +102,9 @@ const EditRecord = () => {
                                 type="text"
                                 autoComplete="none"
                                 placeholder="Location Coordinates"
+                                isInvalid={errors.coordinates}
                                 {...register("coordinates", { required: "Coordinates are required", value: searchParams.get("coordinates") })}
                             />
-                            {errors.coordinates && <Form.Text style={{ color: "red" }}>{errors.coordinates.message}</Form.Text>}
                         </Form.Group>
 
                         <Button variant="primary" type="submit" disabled={isLoading}>
