@@ -1,9 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { sequelize } = require("../config/db");
 
-// DEV ONLY
-// const randomWords = require("random-words");
-
 const Record = sequelize.define("records", {
     id: {
         type: DataTypes.INTEGER,
@@ -34,16 +31,5 @@ const Record = sequelize.define("records", {
 }, {
     timestamps: false
 });
-
-// DEV ONLY
-// for (let i = 0; i < 15; i++) {
-//     Record.create({
-//         name: randomWords(),
-//         address: randomWords(),
-//         phone: randomWords(),
-//         workField: randomWords(),
-//         coordinates: randomWords()
-//     });
-// }
 
 module.exports = Record;
