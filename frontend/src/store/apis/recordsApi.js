@@ -43,15 +43,18 @@ const recordsApi = createApi({
                 query: ({ page=1, search }) => {
                     if (!search || search.trim() === "") {
                         return {
-                            url: `/?page=${page}`,
-                            credentials: "include"
+                            url: `/?page=${page}`
                         };
                     }
+
+                    const email = localStorage.getItem("email");
+                    let url = `/${search}`;
+
+                    if (email) {
+                        url = url + `?email=${email}`;
+                    }
                     
-                    return {
-                        url: `/${search}`,
-                        credentials: "include"
-                    };
+                    return { url };
                 },
                 providesTags: ["Record"]
             })

@@ -1,7 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
 
 dotenv.config({ path: "./.env" });
 
@@ -14,8 +13,7 @@ const errorMiddleware = require("./middlewares/errorMiddleware");
 
 databaseConnect();
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
-app.use(cookieParser());
+app.use(cors());
 
 app.use("/auth", authRoutes);
 app.use("/records", recordsRoutes);

@@ -1,5 +1,7 @@
 const { Op } = require("sequelize");
+
 const Record = require("../models/Record");
+const sendMail = require("../utils/sendMail");
 
 module.exports.addRecord = async (req, res, next) => {
     if (
@@ -93,6 +95,7 @@ module.exports.deleteRecord = async (req, res, next) => {
 
 module.exports.getSpecificRecord = async (req, res, next) => {
     const search = req.params.search.trim();
+    const email = req.query.email;
 
     if (!search || search === "") {
         return res.status(400).json({ errorMessage: "Invalid search value" });
@@ -113,6 +116,18 @@ module.exports.getSpecificRecord = async (req, res, next) => {
 
         if (!records || records.length === 0) {
             return res.status(404).json({ errorMessage: "Record not found" });
+        }
+
+        if (email) {
+            let html = "<table style='padding: 10px;'><thead><th style='border: 1px solid black'>Name</th><th style='border: 1px solid black'>Address</th><th style='border: 1px solid black'>Phone</th><th style='border: 1px solid black'>Work Field</th><th style='border: 1px solid black'>Location Coordinates</th></thead><tbody>";
+
+            for (let i = 0; i < records.length; i++) {
+                html += `<tr><td style='border: 1px solid black'>${records[i].name}</td><td style='border: 1px solid black'>${records[i].address}</td><td style='border: 1px solid black'>${records[i].phone}</td><td style='border: 1px solid black'>${records[i].workField}</td><td style='border: 1px solid black'>${records[i].coordinates}</td></tr>`;
+            }
+
+            html += "</tbody></table>";
+
+            sendMail(email, html);
         }
 
         res.status(200).json({ records });

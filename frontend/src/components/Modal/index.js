@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useCookies } from "react-cookie";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -9,24 +8,23 @@ import toast from "react-hot-toast";
 
 const EnhancedModal = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const [cookies, setCookie] = useCookies(["email"]);
     const [show, setShow] = useState(false);
 
     useEffect(() => {
         let timer;
 
-        if (!cookies.email) {
+        if (!localStorage.getItem("email")) {
             timer = setTimeout(() => setShow(true), 3000);
         }
 
         return () => {
             clearTimeout(timer);
         }
-    }, [cookies.email]);
+    }, []);
 
     const onEmailFormSubmit = formData => {
-        if (!cookies.email) {
-            setCookie("email", formData.email, { path: "/", maxAge: 604800 });
+        if (!localStorage.getItem("email")) {
+            localStorage.setItem("email", formData.email);
             reset();
             setShow(false);
             toast.success("E-mail saved!");
