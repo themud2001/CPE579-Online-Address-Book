@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import Modal from "react-bootstrap/Modal";
 import Pagination from "react-bootstrap/Pagination";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { TiEdit } from "react-icons/ti";
@@ -15,6 +16,7 @@ const RecordsTable = () => {
     const navigate = useNavigate();
     const [{ username, token }, search] = useSelector(state => [state.auth, state.search]);
     const [page, setPage] = useState(1);
+    const [show, setShow] = useState("");
     const {
         isSuccess: isSuccessFetchRecords,
         isError: isErrorFetchRecords,
@@ -63,7 +65,7 @@ const RecordsTable = () => {
 
                                 <Button
                                     variant="danger"
-                                    onClick={() => deleteRecord({ id: element.id, token })}
+                                    onClick={() => setShow(element.id.toString())}
                                 >
                                     <RiDeleteBinLine />
                                 </Button>
@@ -86,6 +88,13 @@ const RecordsTable = () => {
             );
         }
     }
+
+    const onConfirmDeleteButtonClick = () => {
+        if (show && show.trim() !== "" && parseInt(show) !== NaN) {
+            deleteRecord({ id: parseInt(show), token });
+            setShow("");
+        }
+    }
     
     return (
         isErrorFetchRecords ? (
@@ -97,6 +106,21 @@ const RecordsTable = () => {
                 </div>
             ) : (
                 <>
+                    <Modal show={show} onHide={() => setShow("")} centered>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Delete Confirmation</Modal.Title>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <p>Do you really want to delete this record?</p>
+                        </Modal.Body>
+
+                        <Modal.Footer>
+                            <Button variant="light" onClick={() => setShow("")}>Close</Button>
+                            <Button variant="danger" onClick={onConfirmDeleteButtonClick}>Delete</Button>
+                        </Modal.Footer>
+                    </Modal>
+
                     <div className="mt-4 shadow-sm">
                         <Table striped responsive bordered>
                             <thead>
