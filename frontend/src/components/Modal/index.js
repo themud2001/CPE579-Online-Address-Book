@@ -1,26 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Container, InputGroup } from "react-bootstrap";
 import toast from "react-hot-toast";
+import { HiOutlineMail } from "react-icons/hi";
+
+import "./style.scss";
 
 const EnhancedModal = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [show, setShow] = useState(false);
-
-    useEffect(() => {
-        let timer;
-
-        if (!localStorage.getItem("email")) {
-            timer = setTimeout(() => setShow(true), 3000);
-        }
-
-        return () => {
-            clearTimeout(timer);
-        }
-    }, []);
 
     const onEmailFormSubmit = formData => {
         if (!localStorage.getItem("email")) {
@@ -31,7 +22,13 @@ const EnhancedModal = () => {
         }
     };
 
-    return (
+    const onUnsubscribeButtonClick = () => {
+        localStorage.removeItem("email");
+        setShow(false);
+        toast.success("E-mail removed!");
+    };
+
+    const subscribeModal = (
         <Modal show={show} onHide={() => setShow(false)} centered>
             <Modal.Header closeButton>
                 <Modal.Title>Send Records on E-mail?</Modal.Title>
@@ -62,6 +59,34 @@ const EnhancedModal = () => {
                 </Container>
             </Modal.Body>
         </Modal>
+    );
+
+    const unsubscribeModal = (
+        <Modal show={show} onHide={() => setShow(false)} centered>
+            <Modal.Header closeButton>
+                <Modal.Title>Unsubscribe E-mail?</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <p>Do you really want to unsubscribe? You won't receive search results on your E-mail!</p>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button variant="light" onClick={() => setShow(false)}>Close</Button>
+                <Button variant="primary" onClick={onUnsubscribeButtonClick}>Unsubscribe</Button>
+            </Modal.Footer>
+        </Modal>
+    );
+
+    return (
+        <>
+            <Button
+                className="fixed-bottom rounded-circle ms-auto m-3 email-modal-button"
+                onClick={() => setShow(true)}
+            ><HiOutlineMail /></Button>
+
+            {!localStorage.getItem("email") ? subscribeModal : unsubscribeModal}
+        </>
     );
 };
 
