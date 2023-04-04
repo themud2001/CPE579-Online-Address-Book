@@ -31,7 +31,7 @@ const EnhancedModal = () => {
     const subscribeModal = (
         <Modal show={show} onHide={() => setShow(false)} centered>
             <Modal.Header closeButton>
-                <Modal.Title>Send Records on E-mail?</Modal.Title>
+                <Modal.Title>E-mail Subscription</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -64,11 +64,11 @@ const EnhancedModal = () => {
     const unsubscribeModal = (
         <Modal show={show} onHide={() => setShow(false)} centered>
             <Modal.Header closeButton>
-                <Modal.Title>Unsubscribe E-mail?</Modal.Title>
+                <Modal.Title>E-mail Unsubscription</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-                <p>Do you really want to unsubscribe? You won't receive search results on your E-mail!</p>
+                <p>Do you really want to unsubscribe? You won't receive search results on your E-mail.</p>
             </Modal.Body>
 
             <Modal.Footer>
