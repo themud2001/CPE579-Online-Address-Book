@@ -94,7 +94,7 @@ module.exports.deleteRecord = async (req, res, next) => {
 };
 
 module.exports.getSpecificRecord = async (req, res, next) => {
-    const search = req.params.search.trim();
+    let search = req.params.search.trim();
     const email = req.query.email;
 
     if (!search || search === "") {
@@ -102,6 +102,7 @@ module.exports.getSpecificRecord = async (req, res, next) => {
     }
 
     try {
+        search = { [Op.like]: `%${search}%` };
         const records = await Record.findAll({
             where: {
                 [Op.or]: [
