@@ -19,7 +19,7 @@ const EnhancedNavbar = () => {
         <Navbar className="sticky-top custom-gradient shadow-sm" bg="primary" variant="dark">
             <Container>
                 <Link to="/" className="navbar-brand">
-                    <img src={logo} height="40" width="40" />
+                    <img src={logo} height="40" width="40" alt="Website Logo" />
                     
                     Online Address Book
                 </Link>
