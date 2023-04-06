@@ -1,0 +1,1 @@
+cmd /c "cd backend & npm run dev"
