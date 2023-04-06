@@ -24,8 +24,12 @@ const Record = sequelize.define("records", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    coordinates: {
-        type: DataTypes.STRING,
+    longitude: {
+        type: DataTypes.DOUBLE,
+        allowNull: false
+    },
+    latitude: {
+        type: DataTypes.DOUBLE,
         allowNull: false
     }
 }, {

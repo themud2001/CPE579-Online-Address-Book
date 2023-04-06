@@ -9,12 +9,14 @@ import { changeSearch } from "../../store";
 
 const Search = () => {
     const dispatch = useDispatch();
-    const searchValue = useSelector(state => state.search);
+    const [{ searchValue }, location] = useSelector(state => [state.search, state.location]);
     const [search, setSearch] = useState(searchValue || "");
 
     const handleSearchOnSubmit = e => {
         e.preventDefault();
-        dispatch(changeSearch(search));
+
+        const nearestLocation = e.target["nearest-location"].checked;
+        dispatch(changeSearch({ searchValue: search, nearestLocation }));
     }
 
     const handleSearchOnChange = e => {
@@ -22,7 +24,7 @@ const Search = () => {
     };
 
     return (
-        <Form className="w-100 me-auto shadow-sm" onSubmit={handleSearchOnSubmit}>
+        <Form className="w-100 me-auto" onSubmit={handleSearchOnSubmit}>
             <InputGroup>
                 <Form.Control
                     type="text"
@@ -36,6 +38,14 @@ const Search = () => {
                     <BiSearch />
                 </Button>
             </InputGroup>
+
+            <Form.Check
+                type="switch"
+                id="nearest-location"
+                label="Find nearest location"
+
+                disabled={!location.longitude || !location.latitude}
+            />
         </Form>
     );
 };

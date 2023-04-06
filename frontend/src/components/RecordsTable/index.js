@@ -14,7 +14,11 @@ import RecordsTablePlaceholder from "../RecordsTablePlaceholder";
 
 const RecordsTable = () => {
     const navigate = useNavigate();
-    const [{ username, token }, search] = useSelector(state => [state.auth, state.search]);
+    const [
+        { username, token },
+        { searchValue, nearestLocation },
+        { longitude, latitude }
+    ] = useSelector(state => [state.auth, state.search, state.location]);
     const [page, setPage] = useState(1);
     const [show, setShow] = useState("");
     const {
@@ -23,7 +27,13 @@ const RecordsTable = () => {
         isFetching: isFetchingFetchRecords,
         data,
         error: errorFetchRecords
-    } = useFetchRecordsQuery({ page, search });
+    } = useFetchRecordsQuery({
+        page,
+        searchValue,
+        nearestLocation,
+        longitude,
+        latitude
+    });
 
     const [deleteRecord, {
         isSuccess: isSuccessDeleteRecords,
@@ -52,13 +62,14 @@ const RecordsTable = () => {
                     <td>{element.address}</td>
                     <td>{element.phone}</td>
                     <td>{element.workField}</td>
+                    <td>{element.longitude}</td>
                     <td className="d-flex justify-content-between">
-                        {element.coordinates}
+                        {element.latitude}
                         {username && (
                             <div className="d-flex gap-1">
                                 <Button
                                     variant="primary"
-                                    onClick={() => navigate(`/edit-record?id=${element.id}&name=${element.name}&address=${element.address}&phone=${element.phone}&workField=${element.workField}&coordinates=${element.coordinates}`)}
+                                    onClick={() => navigate(`/edit-record?id=${element.id}&name=${element.name}&address=${element.address}&phone=${element.phone}&workField=${element.workField}&longitude=${element.longitude}&latitude=${element.latitude}`)}
                                 >
                                     <TiEdit />
                                 </Button>
@@ -82,7 +93,7 @@ const RecordsTable = () => {
             renderedPagination.push(
                 <Pagination.Item
                     key={i}
-                    active={page == i + 1}
+                    active={page === i + 1}
                     onClick={() => setPage(i + 1)}
                 >{i + 1}</Pagination.Item>
             );
@@ -90,7 +101,7 @@ const RecordsTable = () => {
     }
 
     const onConfirmDeleteButtonClick = () => {
-        if (show && show.trim() !== "" && parseInt(show) !== NaN) {
+        if (show && show.trim() !== "" && !isNaN(parseInt(show))) {
             deleteRecord({ id: parseInt(show), token });
             setShow("");
         }
@@ -129,7 +140,7 @@ const RecordsTable = () => {
                                     <th>Address</th>
                                     <th>Phone</th>
                                     <th>Work Field</th>
-                                    <th>Location Coordinates</th>
+                                    <th colSpan="2">Location Coordinates</th>
                                 </tr>
                             </thead>
 
@@ -139,7 +150,7 @@ const RecordsTable = () => {
                         </Table>
                     </div>
 
-                    {!search && search.trim() === "" && (
+                    {!searchValue && searchValue.trim() === "" && (
                         <Pagination className="justify-content-center mt-3" size="sm">
                             <Pagination.Prev
                                 disabled={page <= 1}

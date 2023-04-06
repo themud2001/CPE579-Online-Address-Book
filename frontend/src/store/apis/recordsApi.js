@@ -40,18 +40,22 @@ const recordsApi = createApi({
                 invalidatesTags: ["Record"]
             }),
             fetchRecords: builder.query({
-                query: ({ page=1, search }) => {
-                    if (!search || search.trim() === "") {
+                query: ({ page=1, searchValue, nearestLocation, longitude, latitude }) => {
+                    if (!searchValue || searchValue.trim() === "") {
                         return {
                             url: `/?page=${page}`
                         };
                     }
 
                     const email = localStorage.getItem("email");
-                    let url = `/${search}`;
+                    let url = `/${searchValue}?`;
 
                     if (email) {
-                        url = url + `?email=${email}`;
+                        url = url + `email=${email}&`;
+                    }
+
+                    if (nearestLocation) {
+                        url = url + `nearestLocation=1&longitude=${longitude}&latitude=${latitude}`;
                     }
                     
                     return { url };

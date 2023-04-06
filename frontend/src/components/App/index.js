@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
+import Location from "../Location";
 import Navbar from "../Navbar";
 import Modal from "../Modal";
 import Home from "../Home";
@@ -13,6 +14,7 @@ import ErrorPage from "../ErrorPage";
 const App = () => {
     return (
         <BrowserRouter>
+            <Location />
             <Toaster />
             <Navbar />
             <Modal />

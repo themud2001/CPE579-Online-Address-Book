@@ -3,8 +3,8 @@ module.exports = async () => {
     const Record = require("../models/Record");
 
     try {
-        await Admin.sync({ alter: true});
-        await Record.sync({ alter: true});
+        await Admin.sync({ alter: true });
+        await Record.sync({ alter: true });
         
         console.log("Synchronized the database!");
     } catch (error) {

@@ -94,14 +94,25 @@ const AddRecord = () => {
                             />
                         </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="coordinates">
-                            <Form.Label>Location Coordinates</Form.Label>
+                        <Form.Group className="mb-3" controlId="longitude">
+                            <Form.Label>Longitude</Form.Label>
                             <Form.Control
                                 type="text"
                                 autoComplete="none"
-                                placeholder="Location Coordinates"
-                                isInvalid={errors.coordinates}
-                                {...register("coordinates", { required: "Coordinates are required" })}
+                                placeholder="Longitude"
+                                isInvalid={errors.longitude}
+                                {...register("longitude", { required: "Longitude are required" })}
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="latitude">
+                            <Form.Label>Latitude</Form.Label>
+                            <Form.Control
+                                type="text"
+                                autoComplete="none"
+                                placeholder="Latitude"
+                                isInvalid={errors.latitude}
+                                {...register("latitude", { required: "Latitude are required" })}
                             />
                         </Form.Group>
 

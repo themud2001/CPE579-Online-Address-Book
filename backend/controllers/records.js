@@ -1,4 +1,4 @@
-const { Op } = require("sequelize");
+const { Sequelize, Op } = require("sequelize");
 
 const Record = require("../models/Record");
 const sendMail = require("../utils/sendMail");
@@ -9,12 +9,14 @@ module.exports.addRecord = async (req, res, next) => {
         !req.body.address ||
         !req.body.phone ||
         !req.body.workField ||
-        !req.body.coordinates ||
+        !req.body.longitude ||
+        !req.body.latitude ||
         req.body.name.trim() === "" ||
         req.body.address.trim() === "" ||
         req.body.phone.trim() === "" ||
         req.body.workField.trim() === "" ||
-        req.body.coordinates.trim() === ""
+        isNaN(req.body.longitude) ||
+        isNaN(req.body.latitude)
     ) {
         return res.status(400).json({ errorMessage: "Invalid input" });
     }
@@ -40,13 +42,15 @@ module.exports.editRecord = async (req, res, next) => {
         !req.body.address ||
         !req.body.phone ||
         !req.body.workField ||
-        !req.body.coordinates ||
+        !req.body.longitude ||
+        !req.body.latitude ||
         req.body.id.trim() === "" ||
         req.body.name.trim() === "" ||
         req.body.address.trim() === "" ||
         req.body.phone.trim() === "" ||
         req.body.workField.trim() === "" ||
-        req.body.coordinates.trim() === ""
+        isNaN(req.body.longitude) ||
+        isNaN(req.body.latitude)
     ) {
         return res.status(400).json({ errorMessage: "Invalid input" });
     }
@@ -94,36 +98,71 @@ module.exports.deleteRecord = async (req, res, next) => {
 };
 
 module.exports.getSpecificRecord = async (req, res, next) => {
-    let search = req.params.search.trim();
+    const search = req.params.search.trim();
     const email = req.query.email;
+    const nearestLocation = req.query.nearestLocation;
+    const longitude = parseFloat(req.query.longitude);
+    const latitude = parseFloat(req.query.latitude);
 
-    if (!search || search === "") {
+    if (!search || search === "" || search.trim() === "") {
         return res.status(400).json({ errorMessage: "Invalid search value" });
     }
 
+    if (nearestLocation && (
+        !longitude ||
+        isNaN(longitude) ||
+        !latitude ||
+        isNaN(latitude)
+    )) {
+        return res.status(400).json({ errorMessage: "Invalid location coordinates" });
+    }
+
     try {
-        search = { [Op.like]: `%${search}%` };
-        const records = await Record.findAll({
+        const likeSearch = { [Op.like]: `%${search}%` };
+        let options = {
             where: {
                 [Op.or]: [
-                    { name: search },
-                    { address: search },
-                    { phone: search },
-                    { workField: search },
-                    { coordinates: search },
+                    { name: likeSearch },
+                    { address: likeSearch },
+                    { phone: likeSearch },
+                    { workField: likeSearch }
                 ]
             }
-        });
+        };
+
+        if (!isNaN(search)) {
+            options = {
+                where: {
+                    [Op.or]: [
+                        { name: likeSearch },
+                        { address: likeSearch },
+                        { phone: likeSearch },
+                        { workField: likeSearch },
+                        { longitude: search },
+                        { latitude: search }
+                    ]
+                }
+            };
+        }
+
+        if (nearestLocation) {
+            options.order = [
+                Sequelize.fn("ABS", Sequelize.literal(`longitude - ${longitude}`)),
+                Sequelize.fn("ABS", Sequelize.literal(`latitude - ${latitude}`))
+            ];
+        }
+
+        const records = await Record.findAll(options);
 
         if (!records || records.length === 0) {
             return res.status(404).json({ errorMessage: "Record not found" });
         }
 
         if (email) {
-            let html = "<table style='padding: 10px;'><thead><th style='border: 1px solid black'>Name</th><th style='border: 1px solid black'>Address</th><th style='border: 1px solid black'>Phone</th><th style='border: 1px solid black'>Work Field</th><th style='border: 1px solid black'>Location Coordinates</th></thead><tbody>";
+            let html = "<table style='padding: 10px;'><thead><th style='border: 1px solid black'>Name</th><th style='border: 1px solid black'>Address</th><th style='border: 1px solid black'>Phone</th><th style='border: 1px solid black'>Work Field</th><th colspan='2' style='border: 1px solid black'>Location Coordinates</th></thead><tbody>";
 
             for (let i = 0; i < records.length; i++) {
-                html += `<tr><td style='border: 1px solid black'>${records[i].name}</td><td style='border: 1px solid black'>${records[i].address}</td><td style='border: 1px solid black'>${records[i].phone}</td><td style='border: 1px solid black'>${records[i].workField}</td><td style='border: 1px solid black'>${records[i].coordinates}</td></tr>`;
+                html += `<tr><td style='border: 1px solid black'>${records[i].name}</td><td style='border: 1px solid black'>${records[i].address}</td><td style='border: 1px solid black'>${records[i].phone}</td><td style='border: 1px solid black'>${records[i].workField}</td><td style='border: 1px solid black'>${records[i].longitude}</td><td style='border: 1px solid black'>${records[i].latitude}</td></tr>`;
             }
 
             html += "</tbody></table>";
@@ -137,7 +176,7 @@ module.exports.getSpecificRecord = async (req, res, next) => {
     }
 };
 
-module.exports.getRecords = async (req, res, next) => { 
+module.exports.getRecords = async (req, res, next) => {
     try {
         const count = await Record.count();
         let page = Math.floor(req.query.page);

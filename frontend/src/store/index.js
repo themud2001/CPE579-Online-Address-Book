@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 import { searchReducer, changeSearch } from "./slices/searchSlice";
+import { locationReducer, setLocation } from "./slices/locationSlice";
 import {
     authApi,
     useSignInMutation,
@@ -18,6 +19,7 @@ import {
 
 const store = configureStore({
     reducer: {
+        location: locationReducer,
         search: searchReducer,
         auth: authReducer,
         [authApi.reducerPath]: authApi.reducer,
@@ -34,6 +36,7 @@ setupListeners(store.dispatch);
 
 export {
     store,
+    setLocation,
     changeSearch,
     useSignInMutation,
     useFetchAccountDetailsQuery,

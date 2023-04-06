@@ -1,11 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+    searchValue: "",
+    nearestLocation: false
+};
+
 const searchSlice = createSlice({
     name: "search",
-    initialState: "",
+    initialState,
     reducers: {
         changeSearch: (state, action) => {
-            return action.payload;
+            state.searchValue = action.payload.searchValue;
+            state.nearestLocation = action.payload.nearestLocation;
         }
     }
 });
