@@ -147,8 +147,7 @@ module.exports.getSpecificRecord = async (req, res, next) => {
 
         if (nearestLocation) {
             options.order = [
-                Sequelize.fn("ABS", Sequelize.literal(`longitude - ${longitude}`)),
-                Sequelize.fn("ABS", Sequelize.literal(`latitude - ${latitude}`))
+                Sequelize.literal(`SQRT(POWER(${longitude} - longitude, 2) + POWER(${latitude} - latitude, 2))`)
             ];
         }
 
